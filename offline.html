@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Offline - Ordine Architetti Caltanissetta</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                         'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #1f2937;
+        }
+        
+        .offline-container {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 20px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+        }
+        
+        .logo-icon {
+            font-size: 36px;
+            color: white;
+            z-index: 1;
+        }
+        
+        .offline-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+        
+        .offline-features {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        
+        .offline-features h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            color: #4b5563;
+            font-size: 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: 700;
+            font-size: 16px;
+            width: 20px;
+            height: 20px;
+            background: #d1fae5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .connection-status {
+            margin: 24px 0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .connection-status.offline {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        
+        .connection-status.online {
+            background: #d1fae5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .connection-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 32px;
+        }
+        
+        .retry-button {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .retry-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .retry-button:hover::before {
+            left: 100%;
+        }
+        
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+        }
+        
+        .retry-button:active {
+            transform: translateY(0);
+        }
+        
+        .home-button {
+            background: white;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .home-button:hover {
+            background: #eff6ff;
+            transform: translateY(-1px);
+        }
+        
+        .app-info {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+        
+        .app-info h4 {
+            color: #6b7280;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .retry-button.loading .loading-spinner {
+            display: inline-block;
+        }
+        
+        .retry-button.loading .button-text {
+            display: none;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .offline-container {
+                padding: 24px;
+                margin: 16px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .action-buttons {
+                margin-top: 24px;
+            }
+            
+            .retry-button, .home-button {
+                padding: 14px 24px;
+                font-size: 15px;
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            }
+            
+            .offline-container {
+                background: #1f2937;
+                color: #f9fafb;
+            }
+            
+            h1 {
+                color: #f9fafb;
+            }
+            
+            .offline-features {
+                background: #111827;
+                border-color: #374151;
+            }
+            
+            .offline-features h3 {
+                color: #f9fafb;
+            }
+            
+            .feature-list li {
+                color: #d1d5db;
+                border-color: #374151;
+            }
+            
+            .app-info {
+                border-color: #374151;
+                color: #9ca3af;
+            }
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="logo-container">
+            <div class="logo-icon">🏛️</div>
+        </div>
+        
+        <div class="offline-icon">📡</div>
+        
+        <h1>Connessione Assente</h1>
+        <p class="subtitle">
+            Non è possibile connettersi al server.<br>
+            Controlla la tua connessione internet e riprova.
+        </p>
+        
+        <div class="offline-features">
+            <h3>
+                <span>⚡</span>
+                Funzionalità disponibili offline
+            </h3>
+            <ul class="feature-list">
+                <li>Visualizza i dati precedentemente caricati</li>
+                <li>Consulta l'albo degli architetti</li>
+                <li>Leggi le informazioni dell'Ordine</li>
+                <li>Naviga tra le sezioni dell'app</li>
+                <li>Accedi alle impostazioni personali</li>
+            </ul>
+        </div>
+        
+        <div class="connection-status offline" id="connectionStatus">
+            <div class="connection-indicator"></div>
+            <span>Connessione assente</span>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="retry-button" onclick="checkConnection()">
+                <div class="loading-spinner"></div>
+                <span class="button-text">🔄 Riprova Connessione</span>
+            </button>
+            <a href="/" class="home-button">
+                🏠 Torna alla Home
+            </a>
+        </div>
+        
+        <div class="app-info">
+            <h4>📱 Ordine Architetti P.P.C. Caltanissetta</h4>
+            <p>App ufficiale dell'Ordine degli Architetti, Pianificatori, Paesaggisti e Conservatori della Provincia di Caltanissetta</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Via E. De Nicola n.17, Caltanissetta</span>
+                </div>
+                <div class="contact-item">
+                    <span>📞</span>
+                    <span>0934 55 30 40</span>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>327 1431252</span>
+                </div>
+                <div class="contact-item">
+                    <span>✉️</span>
+                    <span>architetti@caltanissetta.archiworld.it</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Connection monitoring
+        let isCheckingConnection = false;
+        
+        function updateConnectionStatus() {
+            const statusElement = document.getElementById('connectionStatus');
+            const indicator = statusElement.querySelector('.connection-indicator');
+            const text = statusElement.querySelector('span');
+            
+            if (navigator.onLine) {
+                statusElement.className = 'connection-status online';
+                text.textContent = 'Connessione ripristinata';
+                indicator.style.background = '#059669';
+                
+                // Auto-redirect after a moment
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+            } else {
+                statusElement.className = 'connection-status offline';
+                text.textContent = 'Connessione assente';
+                indicator.style.background = '#dc2626';
+            }
+        }
+        
+        async function checkConnection() {
+            if (isCheckingConnection) return;
+            
+            isCheckingConnection = true;
+            const button = document.querySelector('.retry-button');
+            button.classList.add('loading');
+            
+            try {
+                // Try to fetch a small resource to test connection
+                const response = await fetch('/favicon.ico?' + Date.now(), {
+                    method: 'HEAD',
+                    cache: 'no-cache'
+                });
+                
+                if (response.ok) {
+                    // Connection restored
+                    updateConnectionStatus();
+                    
+                    // Try to reload the main app
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 1000);
+                } else {
+                    throw new Error('Connection test failed');
+                }
+            } catch (error) {
+                console.log('Connection still unavailable:', error);
+                
+                // Show feedback
+                button.style.background = '#dc2626';
+                setTimeout(() => {
+                    button.style.background = '';
+                }, 1000);
+            } finally {
+                setTimeout(() => {
+                    button.classList.remove('loading');
+                    isCheckingConnection = false;
+                }, 1500);
+            }
+        }
+        
+        // Listen for connection changes
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+        
+        // Initialize connection status
+        document.addEventListener('DOMContentLoaded', updateConnectionStatus);
+        
+        // Periodic connection check
+        setInterval(() => {
+            if (!isCheckingConnection && !navigator.onLine) {
+                // Silently check if connection is back
+                fetch('/favicon.ico?' + Date.now(), { 
+                    method: 'HEAD', 
+                    cache: 'no-cache' 
+                })
+                .then(response => {
+                    if (response.ok) {
+                        updateConnectionStatus();
+                    }
+                })
+                .catch(() => {
+                    // Still offline, do nothing
+                });
+            }
+        }, 30000); // Check every 30 seconds
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'r' && (event.ctrlKey || event.metaKey)) {
+                event.preventDefault();
+                checkConnection();
+            } else if (event.key === 'h' && (event.ctrlKey || event.metaKey)) {
+                event.preventDefault();
+                window.location.href = '/';
+            }
+        });
+        
+        // Service worker communication
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                if (event.data && event.data.type === 'CACHE_UPDATED') {
+                    // Show notification that cached content was updated
+                    const notification = document.createElement('div');
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #10b981;
+                        color: white;
+                        padding: 12px 20px;
+                        border-radius: 8px;
+                        font-size: 14px;
+                        z-index: 9999;
+                        animation: slideIn 0.3s ease-out;
+                    `;
+                    notification.textContent = 'Contenuti aggiornati in cache';
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                }
+            });
+        }
+        
+        console.log('📱 Offline page loaded - Ordine Architetti Caltanissetta');
+    </script>
+</body>
+</html>
