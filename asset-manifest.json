@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/ordine-architetti-frontend/static/css/main.82391c7f.css",
-    "main.js": "/ordine-architetti-frontend/static/js/main.4cc07d3d.js",
-    "static/js/685.ece750ac.chunk.js": "/ordine-architetti-frontend/static/js/685.ece750ac.chunk.js",
+    "main.css": "/ordine-architetti-frontend/static/css/main.f6305460.css",
+    "main.js": "/ordine-architetti-frontend/static/js/main.a4138240.js",
+    "static/js/488.ddea58b2.chunk.js": "/ordine-architetti-frontend/static/js/488.ddea58b2.chunk.js",
     "index.html": "/ordine-architetti-frontend/index.html"
   },
   "entrypoints": [
-    "static/css/main.82391c7f.css",
-    "static/js/main.4cc07d3d.js"
+    "static/css/main.f6305460.css",
+    "static/js/main.a4138240.js"
   ]
 }
